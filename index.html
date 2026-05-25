@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dunia Kembali Bersuara — Bantu Orang Tua Kamu Kembali Hadir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:ital@1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --cream:        #F7F3EE;
+      --cream-dark:   #EFE9E1;
+      --deep-teal:    #2F6F8F;
+      --warm-teal:    #3C8C7C;
+      --amber:        #C88A2D;
+      --soft-gold:    #E8C97A;
+      --text-dark:    #2A2A2A;
+      --text-muted:   #6B6B6B;
+      --card-bg:      #FFFFFF;
+      --border:       #E2DAD0;
+      --shadow:       rgba(47,111,143,0.10);
+      --font-heading: 'Playfair Display', serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+      --font-accent:  'Lora', serif;
+    }
+
+    /* ─── BASE ─── */
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── TYPOGRAPHY ─── */
+    h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+      color: var(--text-dark);
+    }
+    h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.28;
+      color: var(--text-dark);
+    }
+    h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-weight: 700;
+      color: var(--deep-teal);
+    }
+    p { margin-bottom: 1rem; }
+
+    /* ─── DECORATIVE DIVIDER ─── */
+    .divider {
+      width: 56px; height: 3px;
+      background: var(--soft-gold);
+      border-radius: 99px;
+      margin: 14px 0 28px;
+    }
+    .divider.center { margin: 14px auto 28px; }
+
+    /* ─── SECTION ─── */
+    section { padding: 72px 0; }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--warm-teal);
+      margin-bottom: 10px;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+
+
+    /* ════════════════════════════
+       HERO SECTION
+    ════════════════════════════ */
+    .hero {
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      width: 100%;
+      max-height: 580px;
+      overflow: hidden;
+    }
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(247,243,238,0) 30%,
+        rgba(247,243,238,0.5) 65%,
+        rgba(247,243,238,1) 100%
+      );
+    }
+
+    .hero-body {
+      padding: 12px 24px 64px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-body h1 { margin-bottom: 6px; }
+    .hero-body h1 em {
+      font-style: italic;
+      color: var(--deep-teal);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin: 18px 0 32px;
+      line-height: 1.7;
+    }
+
+    /* ─── CTA BUTTON ─── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      background: var(--amber);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-align: center;
+      text-decoration: none;
+      padding: 18px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      animation: pulseSoft 2.8s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover {
+      animation: none;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(200,138,45,0.38);
+    }
+    .btn-primary small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      opacity: 0.85;
+      margin-top: 4px;
+      letter-spacing: 0;
+    }
+
+    .trust-line {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .trust-line span::before { content: '✓ '; color: var(--warm-teal); font-weight: 700; }
+
+    /* ════════════════════════════
+       PROBLEM SECTION
+    ════════════════════════════ */
+    .problem {
+      background: var(--cream-dark);
+      position: relative;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .problem-img {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.13);
+    }
+    .problem-img img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+    .problem-text .pain-list {
+      list-style: none;
+      margin: 20px 0 24px;
+    }
+    .problem-text .pain-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.97rem;
+      display: flex;
+      gap: 10px;
+    }
+    .problem-text .pain-list li::before {
+      content: '—';
+      color: var(--amber);
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+    .emotional-pull {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--deep-teal);
+      line-height: 1.65;
+      border-left: 3px solid var(--soft-gold);
+      padding-left: 20px;
+      margin-top: 24px;
+    }
+
+    /* ════════════════════════════
+       SOCIAL PROOF #1
+    ════════════════════════════ */
+    .proof-1 { padding: 56px 0; }
+    .quote-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 28px var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+    .quote-card::before {
+      content: '\201C';
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      color: var(--soft-gold);
+      position: absolute;
+      top: -8px; left: 24px;
+      line-height: 1;
+      opacity: 0.6;
+    }
+    .quote-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 44px rgba(47,111,143,0.14);
+    }
+    .quote-text {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      padding-top: 20px;
+    }
+    .quote-author {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--warm-teal);
+      letter-spacing: 0.5px;
+    }
+
+    /* ════════════════════════════
+       SOLUTION SECTION
+    ════════════════════════════ */
+    .solution { background: var(--cream-dark); }
+    .solution-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin: 16px 0 40px;
+      line-height: 1.75;
+    }
+    .solution-intro strong { color: var(--text-dark); }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .pillar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: transform 0.2s ease;
+    }
+    .pillar-card:hover { transform: translateY(-3px); }
+    .pillar-icon {
+      width: 52px; height: 52px;
+      background: var(--cream);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .pillar-card h3 { margin-bottom: 6px; font-size: 1rem; }
+    .pillar-card p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+
+    /* ════════════════════════════
+       HOW IT WORKS
+    ════════════════════════════ */
+    .how-it-works { text-align: center; }
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 40px;
+      position: relative;
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      text-align: left;
+      padding-bottom: 36px;
+      position: relative;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-line {
+      position: absolute;
+      left: 23px;
+      top: 48px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--soft-gold), transparent);
+    }
+    .step:last-child .step-line { display: none; }
+    .step-num {
+      width: 48px; height: 48px;
+      background: var(--deep-teal);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .step-body h3 { color: var(--text-dark); margin-bottom: 4px; }
+    .step-body p { font-size: 0.92rem; color: var(--text-muted); margin: 0; }
+
+    /* ════════════════════════════
+       SOCIAL PROOF #2
+    ════════════════════════════ */
+    .proof-2 { background: var(--cream-dark); padding: 56px 0; }
+
+    /* ════════════════════════════
+       WHAT YOU GET
+    ════════════════════════════ */
+    .what-you-get { }
+    .mockup-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+      margin-bottom: 40px;
+    }
+    .mockup-wrap img { width: 100%; }
+
+    .bonus-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+    .bonus-list li {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .bonus-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .bonus-list h4 {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--deep-teal);
+      margin-bottom: 2px;
+    }
+    .bonus-list p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ════════════════════════════
+       SOCIAL PROOF #3
+    ════════════════════════════ */
+    .proof-3 { background: var(--cream-dark); padding: 56px 0; }
+
+    /* ════════════════════════════
+       PRICING / CTA UTAMA
+    ════════════════════════════ */
+    .pricing {
+      text-align: center;
+      background: var(--deep-teal);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(60,140,124,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(232,201,122,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .pricing h2 { color: #fff; }
+    .pricing .section-label { color: var(--soft-gold); }
+    .pricing .divider { background: var(--soft-gold); }
+
+    .price-tag {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 8vw, 4rem);
+      font-weight: 800;
+      color: var(--soft-gold);
+      line-height: 1;
+      margin: 28px 0 6px;
+    }
+    .price-note {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 32px;
+    }
+
+    .pricing .btn-primary {
+      background: var(--amber);
+      margin: 0 auto;
+      font-size: 1.1rem;
+      padding: 20px 40px;
+    }
+    .pricing .trust-line {
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      margin-top: 16px;
+    }
+    .pricing .trust-line span::before { color: var(--soft-gold); }
+
+    /* ─── CTA CLOSING IMAGE ─── */
+    .cta-img-wrap {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 28px;
+      border: 4px solid rgba(232,201,122,0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .cta-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    .closing-text {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    footer {
+      background: #1e1e1e;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.78rem;
+    }
+
+    /* ════════════════════════════
+       STICKY CTA BAR
+    ════════════════════════════ */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--deep-teal);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 999;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.2);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar-text {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.3;
+      flex: 1;
+    }
+    .sticky-bar-text span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+    }
+    .sticky-bar .btn-sm {
+      background: var(--amber);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════
+       ANIMATIONS
+    ════════════════════════════ */
+    @keyframes pulseSoft {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,138,45,0.4); }
+      50%       { box-shadow: 0 0 0 14px rgba(200,138,45,0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ════════════════════════════
+       RESPONSIVE — TABLET+
+    ════════════════════════════ */
+    @media (min-width: 640px) {
+      .problem-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .pillar-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-body h1 { font-size: 2.8rem; }
+      section { padding: 88px 0; }
+      .proof-1, .proof-2, .proof-3 { padding: 72px 0; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-img-wrap { max-height: 640px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════
+       HERO
+  ══════════════════════════ -->
+  <section class="hero">
+    <div class="hero-img-wrap">
+      <img
+        src="https://lh3.googleusercontent.com/d/1jtqR_5n8sKmS36qEFZRNs5FtbchRNA1P"
+        alt="Anak dan orang tua ngobrol hangat di meja makan"
+        loading="eager"
+      />
+    </div>
+
+    <div class="hero-body">
+      <p class="section-label">Dunia Kembali Bersuara</p>
+      <h1>Orang Tua Kamu Makin Sering Diam di Meja Makan? <em>Mungkin Bukan Karena Tidak Mau Bicara.</em></h1>
+
+      <p class="hero-sub">
+        Temukan pola sulit dengarnya dalam 10 menit. Lalu bantu mereka melatih fokus menangkap suara dan percakapan keluarga — cukup 10–15 menit sehari, dari rumah, tanpa alat khusus, tanpa buat mereka merasa sedang dites.
+      </p>
+
+      <a href="#pricing" class="btn-primary">
+        Ya, Saya Mau Bantu Orang Tua Saya
+        <small>Rp127.000 · Akses langsung</small>
+      </a>
+
+      <div class="trust-line">
+        <span>Akses langsung setelah bayar</span>
+        <span>3 PDF siap pakai</span>
+        <span>Tanpa biaya bulanan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       PROBLEM
+  ══════════════════════════ -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-img reveal">
+          <img
+            src="https://lh3.googleusercontent.com/d/1N97rs4MoT_RDHBo732yO83OHOCxqefWI"
+            alt="Lansia diam di tengah keluarga yang sedang ngobrol"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="problem-text reveal">
+          <p class="section-label">Kamu pernah ngerasa ini?</p>
+          <h2>Kamu Nggak Tahu Harus Mulai dari Mana</h2>
+          <div class="divider"></div>
+
+          <ul class="pain-list">
+            <li>Orang tua nyahut pertanyaan yang salah</li>
+            <li>Sering minta diulang berkali-kali</li>
+            <li>Pelan-pelan mulai lebih banyak diam</li>
+            <li>Ngomong lebih keras malah bikin mereka tersinggung</li>
+            <li>Disuruh ke dokter, belum tentu mau</li>
+          </ul>
+
+          <p class="emotional-pull">
+            "Yang paling menyakitkan bukan suaranya yang hilang — tapi momen-momen kecil keluarga yang perlahan ikut hilang."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       SOCIAL PROOF #1
+  ══════════════════════════ -->
+  <section class="proof-1">
+    <div class="container">
+      <div class="quote-card reveal">
+        <p class="quote-text">
+          "Saya kira masalahnya cuma volume. Ternyata Mama lebih sulit dengar kalau ada suara TV nyala di belakang. Setelah tahu itu, percakapan kami langsung berasa beda. Saya cuma perlu tahu di mana harus mulai."
+        </p>
+        <p class="quote-author">— Rina, 34 tahun · Surabaya</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       SOLUTION
+  ══════════════════════════ -->
+  <section class="solution">
+    <div class="container">
+      <p class="section-label reveal">Solusinya</p>
+      <h2 class="reveal">Dunia Kembali Bersuara Bukan Terapi. Ini Panduan Praktis untuk Anak yang Mau Hadir — Bukan Sekadar Khawatir.</h2>
+      <div class="divider reveal"></div>
+
+      <p class="solution-intro reveal">
+        Kamu nggak perlu jadi ahli audiologi. Kamu cuma perlu tahu <strong>di mana masalahnya</strong>, dan <strong>latihan apa yang tepat</strong> untuk orang tua kamu — dimulai dari hari ini.
+      </p>
+
+      <div class="pillar-grid">
+        <div class="pillar-card reveal">
+          <div class="pillar-icon">🗺️</div>
+          <div>
+            <h3>Peta Suara 10 Menit</h3>
+            <p>Temukan situasi mana yang paling bikin orang tua kesulitan — sebelum kamu mulai bantu apapun.</p>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal">
+          <div class="pillar-icon">🔁</div>
+          <div>
+            <h3>Metode 3R</h3>
+            <p>Rangsang – Rekam – Respon. Latihan 10–15 menit/hari pakai suara yang sudah ada di rumah.</p>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal">
+          <div class="pillar-icon">🗓️</div>
+          <div>
+            <h3>Program 14 Hari</h3>
+            <p>Terstruktur dari hari pertama sampai hari ke-14. Nggak perlu tebak-tebak mau latihan apa.</p>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal">
+          <div class="pillar-icon">📋</div>
+          <div>
+            <h3>Toolkit Lengkap</h3>
+            <p>Script ngajak latihan, tracker harian, kartu kata, dan panduan bicara keluarga.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       HOW IT WORKS
+  ══════════════════════════ -->
+  <section class="how-it-works">
+    <div class="container">
+      <p class="section-label reveal">Cara kerjanya</p>
+      <h2 class="reveal">Semudah 3 Langkah</h2>
+      <div class="divider center reveal"></div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div>
+            <div class="step-num">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Isi Peta Suara</h3>
+            <p>10 menit, kamu langsung tahu titik awal yang tepat. Bukan tebak-tebakan lagi.</p>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div>
+            <div class="step-num">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Jalankan Latihan 14 Hari</h3>
+            <p>10–15 menit per hari. Lembut, nggak bikin orang tua merasa diuji atau dipaksa.</p>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div>
+            <div class="step-num">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Evaluasi & Ulangi</h3>
+            <p>Lihat perubahan nyata. Ulangi siklusnya setiap 2–3 bulan agar hasilnya terjaga.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       SOCIAL PROOF #2
+  ══════════════════════════ -->
+  <section class="proof-2">
+    <div class="container">
+      <div class="quote-card reveal">
+        <p class="quote-text">
+          "Ayah saya orangnya gengsi. Saya takut kalau langsung diajak 'latihan pendengaran' dia makal. Tapi pakai script dari buku ini, saya bilang kita cuma mau ngobrol lebih enak. Dia mau. Dan hari ke-7, dia sendiri yang bilang senang."
+        </p>
+        <p class="quote-author">— Doni, 41 tahun · Bandung</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       WHAT YOU GET
+  ══════════════════════════ -->
+  <section class="what-you-get">
+    <div class="container">
+      <p class="section-label reveal">Yang kamu dapat</p>
+      <h2 class="reveal">3 PDF Siap Pakai, Langsung Hari Ini</h2>
+      <div class="divider reveal"></div>
+
+      <div class="mockup-wrap reveal">
+        <img
+          src="https://lh3.googleusercontent.com/d/1giya7_Hf7Ehfb4nerseSWtGCAEu8PR00"
+          alt="Mockup produk Dunia Kembali Bersuara"
+          loading="lazy"
+        />
+      </div>
+
+      <ul class="bonus-list">
+        <li class="reveal">
+          <div class="bonus-icon">📘</div>
+          <div>
+            <h4>eBook Utama — Dunia Kembali Bersuara</h4>
+            <p>Panduan lengkap Metode 3R: Rangsang–Rekam–Respon. Bahasa santai, bisa langsung dipraktikkan malam ini.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <div class="bonus-icon">🗺️</div>
+          <div>
+            <h4>Bonus PDF #1 — Peta Suara 10 Menit</h4>
+            <p>Checklist pemetaan pola sulit dengar. Isi 10 menit, langsung tahu harus mulai latihan dari mana.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <div class="bonus-icon">🧰</div>
+          <div>
+            <h4>Bonus PDF #2 — Toolkit Latihan 14 Hari</h4>
+            <p>Tracker harian, script ngajak orang tua, kartu kata mirip, panduan bicara keluarga, dan template evaluasi mingguan.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       SOCIAL PROOF #3
+  ══════════════════════════ -->
+  <section class="proof-3">
+    <div class="container">
+      <div class="quote-card reveal">
+        <p class="quote-text">
+          "Saya bukan orang yang suka baca panduan panjang. Tapi ini beda. Saya selesai baca bagian pentingnya dalam satu sore, langsung coba malam itu juga. Mama ternyata lebih mudah dengar kalau saya duduk berhadapan dan bicara lebih pelan — bukan lebih keras. Simple banget tapi selama ini saya nggak tahu."
+        </p>
+        <p class="quote-author">— Santi · Jakarta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       PRICING / CTA UTAMA
+  ══════════════════════════ -->
+  <section class="pricing" id="pricing">
+    <div class="container" style="position:relative; z-index:1;">
+
+      <div class="cta-img-wrap reveal">
+        <img
+          src="https://lh3.googleusercontent.com/d/1lSbKEtOdquz5YxPHZ3r2FclEXfLPc_A9"
+          alt="Tangan anak menggenggam tangan orang tua"
+          loading="lazy"
+        />
+      </div>
+
+      <p class="section-label reveal">Mulai sekarang</p>
+      <h2 class="reveal">Orang Tua Kamu Masih Punya Banyak Cerita yang Ingin Didengar.</h2>
+      <div class="divider center reveal"></div>
+
+      <p class="closing-text reveal">
+        Kamu tinggal tahu caranya hadir.
+      </p>
+
+      <div class="price-tag reveal">Rp127.000</div>
+      <p class="price-note reveal">Bayar sekali · Akses selamanya · 3 PDF langsung kamu terima</p>
+
+      <a href="#" class="btn-primary reveal">
+        Ya, Saya Mau Bantu Orang Tua Saya
+        <small>Dapatkan akses sekarang</small>
+      </a>
+
+      <div class="trust-line reveal">
+        <span>Akses langsung setelah bayar</span>
+        <span>Tanpa biaya bulanan</span>
+        <span>Pembayaran aman</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       FOOTER
+  ══════════════════════════ -->
+  <footer>
+    <p>© 2025 Dunia Kembali Bersuara · Semua hak dilindungi</p>
+  </footer>
+
+  <!-- ══════════════════════════
+       STICKY BAR
+  ══════════════════════════ -->
+  <div class="sticky-bar" id="stickyBar">
+    <div class="sticky-bar-text">
+      Dunia Kembali Bersuara
+      <span>3 PDF · Rp127.000 · Akses langsung</span>
+    </div>
+    <a href="#pricing" class="btn-sm">Dapatkan Sekarang</a>
+  </div>
+
+  <!-- ══════════════════════════
+       SCRIPTS
+  ══════════════════════════ -->
+  <script>
+    // Sticky bar
+    const stickyBar = document.getElementById('stickyBar');
+    window.addEventListener('scroll', () => {
+      stickyBar.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
